@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>On Time Construction | Albuquerque, NM | Johnny Barela</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --concrete:   #2b2b2b;
+      --dark:       #1a1a1a;
+      --darker:     #111;
+      --orange:     #e8620a;
+      --orange-dk:  #c4510a;
+      --orange-lt:  #f07a2e;
+      --sand:       #d4c4a8;
+      --light:      #f2ede5;
+      --muted:      #7a736a;
+      --border:     rgba(255,255,255,0.07);
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--darker);
+      color: var(--light);
+      overflow-x: hidden;
+    }
+
+    /* ── CONCRETE TEXTURE ── */
+    body::before {
+      content:'';
+      position:fixed; inset:0; z-index:0;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events:none;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:900;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:1.2rem 3rem;
+      background:rgba(17,17,17,0.9);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid transparent;
+      transition:border-color 0.3s;
+    }
+    nav.scrolled { border-bottom-color:var(--border); }
+
+    .logo {
+      display:flex; align-items:center; gap:0.9rem;
+      text-decoration:none;
+    }
+    .logo-icon {
+      width:38px; height:38px;
+      background:var(--orange);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.1rem; font-weight:900;
+      font-family:'Barlow Condensed', sans-serif;
+      color:#fff; letter-spacing:-0.03em;
+      clip-path: polygon(0 0, 90% 0, 100% 100%, 10% 100%);
+    }
+    .logo-text {
+      font-family:'Barlow Condensed', sans-serif;
+      font-weight:800; font-size:1.05rem;
+      letter-spacing:0.08em; text-transform:uppercase;
+      color:#fff; line-height:1.1;
+    }
+    .logo-sub {
+      font-size:0.58rem; letter-spacing:0.2em;
+      text-transform:uppercase; color:var(--orange);
+      font-weight:600; font-family:'Barlow', sans-serif;
+    }
+
+    .nav-links { display:flex; gap:2rem; list-style:none; align-items:center; }
+    .nav-links a {
+      font-size:0.75rem; letter-spacing:0.18em;
+      text-transform:uppercase; font-weight:600;
+      color:rgba(242,237,229,0.65); text-decoration:none;
+      transition:color 0.2s;
+    }
+    .nav-links a:hover { color:var(--orange); }
+
+    .nav-cta {
+      background:var(--orange) !important;
+      color:#fff !important;
+      padding:0.55rem 1.4rem;
+      clip-path: polygon(0 0, 96% 0, 100% 100%, 4% 100%);
+      transition:background 0.2s !important;
+    }
+    .nav-cta:hover { background:var(--orange-dk) !important; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height:100vh;
+      position:relative;
+      display:flex; align-items:center;
+      padding:0 3rem;
+      overflow:hidden;
+    }
+
+    /* Diagonal split BG */
+    .hero-bg {
+      position:absolute; inset:0;
+      background:
+        linear-gradient(135deg, var(--darker) 55%, #1f1a14 55%);
+    }
+    .hero-bg::after {
+      content:'';
+      position:absolute; inset:0;
+      background:
+        radial-gradient(ellipse 60% 60% at 80% 50%, rgba(232,98,10,0.08) 0%, transparent 65%);
+    }
+
+    /* Large BG text */
+    .hero-watermark {
+      position:absolute;
+      right:-2%;
+      top:50%;
+      transform:translateY(-50%);
+      font-family:'Barlow Condensed', sans-serif;
+      font-weight:900; font-size:clamp(10rem,20vw,22rem);
+      letter-spacing:-0.04em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,0.025);
+      user-select:none; pointer-events:none;
+      line-height:0.85;
+    }
+
+    /* Diagonal accent line */
+    .hero-accent-line {
+      position:absolute;
+      top:0; right:28%;
+      width:2px; height:100%;
+      background:linear-gradient(to bottom, transparent, var(--orange), transparent);
+      opacity:0.3;
+      transform:skewX(-12deg);
+    }
+
+    .hero-content {
+      position:relative; z-index:2;
+      max-width:820px;
+    }
+
+    .hero-badge {
+      display:inline-flex; align-items:center; gap:0.8rem;
+      background:rgba(232,98,10,0.12);
+      border:1px solid rgba(232,98,10,0.3);
+      padding:0.45rem 1rem;
+      margin-bottom:1.8rem;
+      clip-path: polygon(0 0, 97% 0, 100% 100%, 3% 100%);
+      opacity:0; animation:fadeUp 0.7s 0.2s forwards;
+    }
+    .hero-badge span {
+      font-size:0.68rem; letter-spacing:0.3em;
+      text-transform:uppercase; font-weight:600;
+      color:var(--orange);
+    }
+    .hero-badge-dot {
+      width:6px; height:6px;
+      background:var(--orange); border-radius:50%;
+      animation:pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50% { opacity:0.5; transform:scale(0.7); }
+    }
+
+    .hero-h1 {
+      font-family:'Barlow Condensed', sans-serif;
+      font-size:clamp(4.5rem,11vw,10rem);
+      font-weight:900;
+      line-height:0.88;
+      letter-spacing:-0.01em;
+      text-transform:uppercase;
+      color:#fff;
+      margin-bottom:1.2rem;
+      opacity:0; animation:fadeUp 0.7s 0.4s forwards;
+    }
+    .hero-h1 .line-orange { color:var(--orange); display:block; }
+    .hero-h1 .line-outline {
+      -webkit-text-stroke:2px rgba(255,255,255,0.2);
+      color:transparent; display:block;
+    }
+
+    .hero-desc {
+      font-size:1.05rem;
+      line-height:1.75;
+      color:rgba(242,237,229,0.6);
+      max-width:480px;
+      margin-bottom:2.5rem;
+      opacity:0; animation:fadeUp 0.7s 0.6s forwards;
+    }
+
+    .hero-actions {
+      display:flex; gap:1rem; flex-wrap:wrap;
+      opacity:0; animation:fadeUp 0.7s 0.8s forwards;
+    }
+
+    .btn-orange {
+      background:var(--orange); color:#fff;
+      padding:0.95rem 2.2rem;
+      font-family:'Barlow Condensed', sans-serif;
+      font-size:0.95rem; font-weight:700;
+      letter-spacing:0.15em; text-transform:uppercase;
+      text-decoration:none;
+      clip-path: polygon(0 0, 97% 0, 100% 100%, 3% 100%);
+      transition:background 0.2s, transform 0.2s;
+      display:inline-block;
+    }
+    .btn-orange:hover { background:var(--orange-dk); transform:translateY(-2px); }
+
+    .btn-wire {
+      background:transparent; color:var(--light);
+      padding:0.95rem 2.2rem;
+      font-family:'Barlow Condensed', sans-serif;
+      font-size:0.95rem; font-weight:600;
+      letter-spacing:0.15em; text-transform:uppercase;
+      text-decoration:none;
+      border:1px solid rgba(242,237,229,0.2);
+      clip-path: polygon(0 0, 97% 0, 100% 100%, 3% 100%);
+      transition:border-color 0.2s, color 0.2s;
+      display:inline-block;
+    }
+    .btn-wire:hover { border-color:var(--orange); color:var(--orange); }
+
+    /* Stats row */
+    .hero-stats {
+      position:absolute;
+      bottom:3rem; right:3rem;
+      display:flex; gap:0;
+      opacity:0; animation:fadeUp 0.8s 1s forwards;
+    }
+    .stat {
+      padding:1.2rem 1.8rem;
+      border-left:1px solid var(--border);
+      text-align:center;
+    }
+    .stat:first-child { border:none; }
+    .stat-n {
+      font-family:'Barlow Condensed', sans-serif;
+      font-size:2.4rem; font-weight:900;
+      color:var(--orange); line-height:1;
+    }
+    .stat-l {
+      font-size:0.62rem; letter-spacing:0.2em;
+      text-transform:uppercase; color:var(--muted);
+      margin-top:0.3rem;
+    }
+
+    /* scroll indicator */
+    .scroll-hint {
+      position:absolute; bottom:2.5rem; left:3rem;
+      display:flex; flex-direction:column;
+      align-items:flex-start; gap:0.6rem;
+      opacity:0; animation:fadeUp 1s 1.2s forwards;
+    }
+    .scroll-hint span {
+      font-size:0.6rem; letter-spacing:0.35em;
+      text-transform:uppercase; color:var(--muted);
+      writing-mode:vertical-rl;
+    }
+    .scroll-hint::before {
+      content:''; display:block;
+      width:1px; height:50px;
+      background:linear-gradient(to bottom, var(--orange), transparent);
+      animation:scrollLine 2.5s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%,100% { transform:scaleY(1); transform-origin:top; }
+      50% { transform:scaleY(0.3); }
+    }
+
+    /* ── SECTION COMMONS ── */
+    .section-label {
+      font-size:0.68rem; letter-spacing:0.4em;
+      text-transform:uppercase; font-weight:700;
+      color:var(--orange);
+      display:flex; align-items:center; gap:0.7rem;
+      margin-bottom:1rem;
+    }
+    .section-label::before {
+      content:''; display:block;
+      width:28px; height:2px;
+      background:var(--orange);
+      clip-path: polygon(0 0, 90% 0, 100% 100%, 10% 100%);
+    }
+
+    .section-h2 {
+      font-family:'Barlow Condensed', sans-serif;
+      font-size:clamp(2.2rem,5vw,4rem);
+      font-weight:900; text-transform:uppercase;
+      letter-spacing:0.01em; line-height:0.95;
+      color:#fff; margin-bottom:1.2rem;
+    }
+    .section-h2 em { color:var(--orange); font-style:normal; }
+
+    .section-body {
+      font-size:0.97rem; line-height:1.8;
+      color:rgba(242,237,229,0.58);
+    }
+
+    /* ── TAPE DIVIDER ── */
+    .tape {
+      height:3px;
+      background:repeating-linear-gradient(
+        90deg,
+        var(--orange) 0, var(--orange) 30px,
+        transparent 30px, transparent 40px
+      );
+      opacity:0.5;
+      margin:0;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      padding:7rem 3rem;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:6rem;
+      align-items:center;
+      max-width:1280px;
+      margin:0 auto;
+      position:relative; z-index:1;
+    }
+
+    .about-card {
+      background:var(--concrete);
+      border:1px solid var(--border);
+      padding:3rem;
+      position:relative;
+      overflow:hidden;
+    }
+    .about-card::before {
+      content:'';
+      position:absolute; top:0; left:0;
+      width:100%; height:4px;
+      background:var(--orange);
+      clip-path: polygon(0 0, 96% 0, 100% 100%, 4% 100%);
+    }
+    .about-card::after {
+      content:'"';
+      position:absolute; bottom:-1rem; right:1rem;
+      font-family:'Playfair Display', serif;
+      font-style:italic; font-size:8rem;
+      color:rgba(232,98,10,0.07); line-height:1;
+    }
+
+    .about-quote {
+      font-family:'Playfair Display', serif;
+      font-style:italic; font-size:1.15rem;
+      line-height:1.75; color:rgba(242,237,229,0.85);
+      margin-bottom:1.5rem;
+    }
+    .about-attr {
+      font-size:0.68rem; letter-spacing:0.25em;
+      text-transform:uppercase; color:var(--orange); font-weight:600;
+    }
+
+    .about-license {
+      margin-top:2rem;
+      background:rgba(232,98,10,0.08);
+      border:1px solid rgba(232,98,10,0.2);
+      padding:1rem 1.2rem;
+      display:flex; gap:1rem; align-items:center;
+    }
+    .about-license-icon { font-size:1.5rem; }
+    .about-license-text { font-size:0.78rem; color:rgba(242,237,229,0.65); line-height:1.5; }
+    .about-license-text strong { color:var(--orange); display:block; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; }
+
+    .about-grid {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:1px; background:var(--border);
+      border:1px solid var(--border);
+      margin-top:2.5rem;
+    }
+    .about-stat {
+      background:var(--dark);
+      padding:1.3rem;
+    }
+    .about-stat-n {
+      font-family:'Barlow Condensed', sans-serif;
+      font-size:2.2rem; font-weight:900;
+      color:var(--orange); line-height:1;
+    }
+    .about-stat-l {
+      font-size:0.65rem; letter-spacing:0.15em;
+      text-transform:uppercase; color:var(--muted);
+    }
+
+    /* ── SERVICES ── */
+    #services {
+      padding:7rem 3rem;
+      background:var(--dark);
+      position:relative; z-index:1;
+    }
+    #services::before {
+      content:'';
+      position:absolute; top:0; left:0; right:0;
+      height:1px;
+      background:linear-gradient(to right, transparent, var(--orange), transparent);
+      opacity:0.3;
+    }
+
+    .services-top {
+      max-width:1280px; margin:0 auto 3.5rem;
+      display:flex; justify-content:space-between;
+      align-items:flex-end; flex-wrap:wrap; gap:2rem;
+    }
+
+    .services-grid {
+      max-width:1280px; margin:0 auto;
+      display:grid; grid-template-columns:repeat(3,1fr);
+      gap:1.5px;
+      background:var(--border);
+      border:1px solid var(--border);
+    }
+
+    .svc-card {
+      background:var(--dark);
+      padding:2.5rem 2rem;
+      position:relative; overflow:hidden;
+      transition:background 0.3s;
+      cursor:default;
+    }
+    .svc-card::after {
+      content:'';
+      position:absolute; bottom:0; left:0;
+      height:2px; width:0;
+      background:var(--orange);
+      transition:width 0.4s ease;
+    }
+    .svc-card:hover { background:#1f1f1f; }
+    .svc-card:hover::after { width:100%; }
+
+    .svc-num {
+      font-family:'Barlow Condensed', sans-serif;
+      font-size:3.5rem; font-weight:900;
+      color:rgba(232,98,10,0.1);
+      position:absolute; top:1rem; right:1.5rem;
+      line-height:1; user-select:none;
+    }
+
+    .svc-icon { font-size:2rem; margin-bottom:1.1rem; display:block; }
+    .svc-name {
+      font-family:'Barlow Condensed', sans-serif;
+      font-size:1.3rem; font-weight:800;
+      text-transform:uppercase; letter-spacing:0.05em;
+      color:#fff; margin-bottom:0.6rem;
+    }
+    .svc-desc { font-size:0.87rem; line-height:1.7; color:var(--muted); }
+
+    /* ── WHY US ── */
+    #why {
+      padding:7rem 3rem;
+      max-width:1280px; margin:0 auto;
+      position:relative; z-index:1;
+    }
+
+    .why-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr 1fr;
+      gap:1.5px;
+      background:var(--border);
+      border:1px solid var(--border);
+      margin-top:3.5rem;
+    }
+
+    .why-card {
+      background:var(--darker);
+      padding:2.2rem 1.8rem;
+      position:relative;
+      transition:background 0.25s;
+    }
+    .why-card:hover { background:var(--concrete); }
+
+    .why-icon {
+      font-size:2rem; margin-bottom:1rem;
+      display:flex; align-items:center; justify-content:center;
+      width:52px; height:52px;
+      background:rgba(232,98,10,0.1);
+      border:1px solid rgba(232,98,10,0.2);
+    }
+    .why-title {
+      font-family:'Barlow Condensed', sans-serif;
+      font-size:1.15rem; font-weight:800;
+      text-transform:uppercase; letter-spacing:0.05em;
+      color:#fff; margin-bottom:0.6rem;
+    }
+    .why-body { font-size:0.85rem; line-height:1.7; color:var(--muted); }
+
+    /* ── CONTACT ── */
+    #contact {
+      padding:7rem 3rem;
+      background:var(--dark);
+      position:relative; z-index:1;
+    }
+    #contact::before {
+      content:'';
+      position:absolute; top:0; left:0; right:0;
+      height:1px;
+      background:linear-gradient(to right, transparent, var(--orange), transparent);
+      opacity:0.3;
+    }
+
+    .contact-inner {
+      max-width:1280px; margin:0 auto;
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:6rem; align-items:start;
+    }
+
+    .contact-info { }
+
+    .info-block {
+      display:flex; gap:1.2rem; align-items:flex-start;
+      padding:1.3rem 0;
+      border-bottom:1px solid var(--border);
+    }
+    .info-block:last-child { border:none; }
+    .info-icon {
+      width:42px; height:42px; flex-shrink:0;
+      background:rgba(232,98,10,0.1);
+      border:1px solid rgba(232,98,10,0.2);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1rem;
+    }
+    .info-label {
+      font-size:0.62rem; letter-spacing:0.25em;
+      text-transform:uppercase; color:var(--orange);
+      font-weight:700; margin-bottom:0.3rem;
+    }
+    .info-val {
+      font-size:0.95rem; color:rgba(242,237,229,0.8);
+      line-height:1.5;
+    }
+    .info-val a { color:var(--orange); text-decoration:none; }
+    .info-val a:hover { text-decoration:underline; }
+
+    /* CTA card */
+    .cta-card {
+      background:var(--orange);
+      padding:3.5rem 3rem;
+      position:relative; overflow:hidden;
+      clip-path: polygon(0 0, 97% 0, 100% 3%, 100% 100%, 3% 100%, 0 97%);
+    }
+    .cta-card::before {
+      content:'OTC';
+      position:absolute; bottom:-1.5rem; right:-0.5rem;
+      font-family:'Barlow Condensed', sans-serif;
+      font-size:8rem; font-weight:900;
+      color:rgba(0,0,0,0.1);
+      user-select:none; pointer-events:none;
+    }
+
+    .cta-card h3 {
+      font-family:'Barlow Condensed', sans-serif;
+      font-size:clamp(2rem,4vw,3rem);
+      font-weight:900; text-transform:uppercase;
+      letter-spacing:0.02em; color:#fff;
+      line-height:1; margin-bottom:1rem;
+    }
+    .cta-card p {
+      font-size:0.95rem; color:rgba(255,255,255,0.8);
+      line-height:1.7; margin-bottom:2rem;
+    }
+
+    .btn-white {
+      background:#fff; color:var(--orange-dk);
+      padding:0.95rem 2.2rem;
+      font-family:'Barlow Condensed', sans-serif;
+      font-size:0.95rem; font-weight:800;
+      letter-spacing:0.15em; text-transform:uppercase;
+      text-decoration:none;
+      clip-path: polygon(0 0, 97% 0, 100% 100%, 3% 100%);
+      transition:background 0.2s;
+      display:inline-block;
+    }
+    .btn-white:hover { background:#f2ede5; }
+
+    /* License badge in contact */
+    .license-badge {
+      margin-top:2.5rem;
+      display:flex; gap:1rem; align-items:center;
+      background:rgba(255,255,255,0.1);
+      border:1px solid rgba(255,255,255,0.2);
+      padding:1rem 1.2rem;
+      position:relative; z-index:2;
+    }
+    .license-badge-icon { font-size:1.5rem; }
+    .license-badge-text { font-size:0.78rem; color:rgba(255,255,255,0.85); line-height:1.5; }
+    .license-badge-text strong { color:#fff; display:block; }
+
+    /* ── FOOTER ── */
+    footer {
+      background:var(--darker);
+      border-top:1px solid var(--border);
+      padding:2.5rem 3rem;
+      display:flex; justify-content:space-between;
+      align-items:center; flex-wrap:wrap; gap:1.5rem;
+      position:relative; z-index:1;
+    }
+
+    .footer-logo-text {
+      font-family:'Barlow Condensed', sans-serif;
+      font-size:1.1rem; font-weight:900;
+      letter-spacing:0.1em; text-transform:uppercase; color:#fff;
+    }
+    .footer-logo-sub {
+      font-size:0.62rem; letter-spacing:0.2em;
+      text-transform:uppercase; color:var(--orange);
+    }
+
+    .footer-mid {
+      font-size:0.78rem; color:var(--muted);
+      text-align:center; line-height:1.8;
+    }
+
+    .footer-right {
+      font-size:0.72rem; color:var(--muted);
+      text-align:right; line-height:1.7;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(18px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .reveal { opacity:0; transform:translateY(28px); transition:opacity 0.75s ease, transform 0.75s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    /* ── MOBILE ── */
+    @media(max-width:960px){
+      nav { padding:1rem 1.5rem; }
+      .nav-links { display:none; }
+      #hero { padding:6rem 1.5rem 4rem; }
+      .hero-stats { display:none; }
+      .scroll-hint { display:none; }
+      #about { grid-template-columns:1fr; padding:4rem 1.5rem; gap:3rem; }
+      .about-grid { grid-template-columns:1fr 1fr; }
+      #services { padding:4rem 1.5rem; }
+      .services-top { flex-direction:column; }
+      .services-grid { grid-template-columns:1fr; }
+      .why-grid { grid-template-columns:1fr 1fr; }
+      #why { padding:4rem 1.5rem; }
+      .contact-inner { grid-template-columns:1fr; }
+      #contact { padding:4rem 1.5rem; }
+      footer { flex-direction:column; text-align:center; padding:2rem 1.5rem; }
+      .footer-right { text-align:center; }
+    }
+    @media(max-width:600px){
+      .why-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="logo" href="#">
+    <div class="logo-icon">OT</div>
+    <div>
+      <div class="logo-text">On Time Construction</div>
+      <div class="logo-sub">Albuquerque, New Mexico</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="tel:5059801923" class="nav-cta">Get a Quote</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-accent-line"></div>
+  <div class="hero-watermark">OTC</div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      <span>Licensed · Bonded · Albuquerque, NM · Est. 2000</span>
+    </div>
+
+    <h1 class="hero-h1">
+      On<span class="line-orange">Time.</span><span class="line-outline">Every</span>Time.
+    </h1>
+
+    <p class="hero-desc">
+      Quality construction services in Albuquerque and surrounding areas. From countertops to full remodels, Johnny Barela and the On Time Construction team deliver accurate, punctual, and exceptional results — every single project.
+    </p>
+
+    <div class="hero-actions">
+      <a href="tel:5059801923" class="btn-orange">📞 Call for a Free Quote</a>
+      <a href="#services" class="btn-wire">Our Services</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-n">25+</div>
+      <div class="stat-l">Years in Business</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">LLC</div>
+      <div class="stat-l">Licensed Entity</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">2027</div>
+      <div class="stat-l">License Valid Thru</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint"><span>Scroll</span></div>
+</section>
+
+<div class="tape"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="reveal">
+    <div class="about-card">
+      <p class="about-quote">
+        "We take each client's unique situation and preferences into consideration. We are committed to the satisfaction of our customers, meeting any type of demand. On time construction means accurate, punctual, and efficient work — every time."
+      </p>
+      <div class="about-attr">— Johnny Barela, Owner & Founder</div>
+
+      <div class="about-license">
+        <div class="about-license-icon">🏛️</div>
+        <div class="about-license-text">
+          <strong>NM State Licensed — #385205</strong>
+          New Mexico Construction Industries Division · License valid through April 2027
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <div class="section-label">About Us</div>
+    <h2 class="section-h2">Built on<br><em>Reliability.</em></h2>
+    <p class="section-body">
+      On Time Construction was founded in 2000 by Johnny Barela, a licensed New Mexico contractor with a simple but powerful philosophy: show up on time, do the job right, and keep the customer's vision at the center of every decision.
+    </p>
+    <br>
+    <p class="section-body">
+      Based in Albuquerque's northeast heights at 9632 Fuego Circle NE, we serve homeowners and businesses across the greater Albuquerque metro. Specializing in interior and exterior countertops, kitchen and bathroom remodeling, and full construction projects, we bring over 25 years of craftsmanship to every job — big or small.
+    </p>
+
+    <div class="about-grid">
+      <div class="about-stat">
+        <div class="about-stat-n">25+</div>
+        <div class="about-stat-l">Years Experience</div>
+      </div>
+      <div class="about-stat">
+        <div class="about-stat-n">LLC</div>
+        <div class="about-stat-l">Incorporated 2014</div>
+      </div>
+      <div class="about-stat">
+        <div class="about-stat-n">ABQ</div>
+        <div class="about-stat-l">Locally Owned</div>
+      </div>
+      <div class="about-stat">
+        <div class="about-stat-n">NM</div>
+        <div class="about-stat-l">State Licensed</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="tape" style="opacity:0.25;"></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-top">
+    <div class="reveal">
+      <div class="section-label">What We Do</div>
+      <h2 class="section-h2">Our <em>Services</em></h2>
+    </div>
+    <p class="section-body reveal" style="max-width:420px;">
+      From a single countertop installation to a full kitchen gut-and-rebuild, we handle it all with the same care and precision.
+    </p>
+  </div>
+
+  <div class="services-grid">
+    <div class="svc-card reveal">
+      <div class="svc-num">01</div>
+      <span class="svc-icon">🍳</span>
+      <div class="svc-name">Kitchen Countertops</div>
+      <div class="svc-desc">Granite, quartz, marble, concrete — we help you choose the best material for your kitchen and install it with precision and care. The countertop is the heart of your kitchen, and we treat it that way.</div>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-num">02</div>
+      <span class="svc-icon">🌿</span>
+      <div class="svc-name">Outdoor Countertops</div>
+      <div class="svc-desc">Outdoor kitchens and entertaining spaces require materials that can withstand New Mexico's climate. We expertly design and install durable exterior countertops built to last in the elements.</div>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-num">03</div>
+      <span class="svc-icon">🛁</span>
+      <div class="svc-name">Bathroom Countertops</div>
+      <div class="svc-desc">Transform your bathroom vanity into a showpiece. We work with you to select the right materials and finish for your space, creating a warm and beautiful environment you'll enjoy every day.</div>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-num">04</div>
+      <span class="svc-icon">🔨</span>
+      <div class="svc-name">Full Kitchen Remodeling</div>
+      <div class="svc-desc">Complete kitchen renovations from demo to finish. New layouts, cabinetry, countertops, backsplash, flooring — we coordinate the entire project and deliver on schedule.</div>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-num">05</div>
+      <span class="svc-icon">🏠</span>
+      <div class="svc-name">Full Bathroom Remodeling</div>
+      <div class="svc-desc">Whether you're updating an outdated guest bath or building a luxurious master suite, we handle full bathroom remodels with attention to detail at every step.</div>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-num">06</div>
+      <span class="svc-icon">🏗️</span>
+      <div class="svc-name">General Remodeling & Renovation</div>
+      <div class="svc-desc">No job is too big or too complex. We have the experience and licensing to take on comprehensive remodeling and construction projects. Tell us your vision — we'll make it real.</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="reveal" style="text-align:left; max-width:600px;">
+    <div class="section-label">Why Choose Us</div>
+    <h2 class="section-h2">The <em>On Time</em><br>Difference</h2>
+  </div>
+
+  <div class="why-grid">
+    <div class="why-card reveal">
+      <div class="why-icon">⏱️</div>
+      <div class="why-title">Always On Time</div>
+      <div class="why-body">Our name isn't just a slogan. We build realistic timelines, communicate proactively, and show up when we say we will. No surprises, no excuses.</div>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-icon">📋</div>
+      <div class="why-title">Licensed & Legit</div>
+      <div class="why-body">Fully licensed with the New Mexico Construction Industries Division (#385205). We carry the credentials to protect you and your investment on every project.</div>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-icon">🤝</div>
+      <div class="why-title">Client-First Approach</div>
+      <div class="why-body">We take each client's unique situation into account — your taste, your budget, your timeline. You're not just another job to us; your home is personal and we treat it that way.</div>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-icon">🏆</div>
+      <div class="why-title">25 Years of Craft</div>
+      <div class="why-body">Founded in 2000, we've spent over two decades refining our process and building a reputation across Albuquerque for high-quality, reliable construction work.</div>
+    </div>
+  </div>
+</section>
+
+<div class="tape"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="reveal">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-h2">Let's Build<br><em>Something.</em></h2>
+      <p class="section-body" style="margin-bottom:2.5rem;">
+        Ready to start your project? Call us for a free estimate or reach out by email. Johnny Barela personally handles every consultation to make sure you're in good hands from day one.
+      </p>
+
+      <div class="info-block">
+        <div class="info-icon">📞</div>
+        <div>
+          <div class="info-label">Main Phone</div>
+          <div class="info-val"><a href="tel:5059801923">(505) 980-1923</a></div>
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-icon">📱</div>
+        <div>
+          <div class="info-label">Additional Line</div>
+          <div class="info-val"><a href="tel:5058977914">(505) 897-7914</a></div>
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-icon">✉️</div>
+        <div>
+          <div class="info-label">Email</div>
+          <div class="info-val"><a href="mailto:ontimeconstructionusa@gmail.com">ontimeconstructionusa@gmail.com</a></div>
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-icon">📍</div>
+        <div>
+          <div class="info-label">Address</div>
+          <div class="info-val">9632 Fuego Circle NE<br>Albuquerque, NM 87113</div>
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-icon">🏛️</div>
+        <div>
+          <div class="info-label">NM License</div>
+          <div class="info-val">#385205 · Valid through April 2027</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="cta-card">
+        <h3>Free Estimates.<br>No Obligation.</h3>
+        <p>Call or email us to describe your project and schedule a free consultation. We'll come to your home, listen to your goals, and give you an honest quote with no pressure.</p>
+        <a href="tel:5059801923" class="btn-white">📞 Call (505) 980-1923</a>
+
+        <div class="license-badge">
+          <span class="license-badge-icon">✅</span>
+          <div class="license-badge-text">
+            <strong>NM Licensed Contractor · LLC</strong>
+            In business since April 2000 · Incorporated December 2014
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo-text">On Time Construction</div>
+    <div class="footer-logo-sub">Johnny Barela, Owner · Albuquerque, NM</div>
+  </div>
+  <div class="footer-mid">
+    9632 Fuego Circle NE · Albuquerque, NM 87113<br>
+    (505) 980-1923 · ontimeconstructionusa@gmail.com
+  </div>
+  <div class="footer-right">
+    NM License #385205<br>
+    In Business Since 2000<br>
+    © 2025 On Time Construction LLC
+  </div>
+</footer>
+
+<script>
+  // Scrolled nav
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+
+  // Scroll reveal
+  const revEls = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  revEls.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
