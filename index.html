@@ -55,13 +55,13 @@
       text-decoration:none;
     }
     .logo-icon {
-      width:38px; height:38px;
-      background:var(--orange);
+      width:44px; height:44px;
       display:flex; align-items:center; justify-content:center;
-      font-size:1.1rem; font-weight:900;
-      font-family:'Barlow Condensed', sans-serif;
-      color:#fff; letter-spacing:-0.03em;
-      clip-path: polygon(0 0, 90% 0, 100% 100%, 10% 100%);
+    }
+    .logo-icon img {
+      width:44px; height:44px;
+      object-fit:contain;
+      filter: brightness(0) invert(1);
     }
     .logo-text {
       font-family:'Barlow Condensed', sans-serif;
@@ -252,7 +252,25 @@
       margin-top:0.3rem;
     }
 
-    /* scroll indicator */
+    .hero-eagle {
+      position:absolute;
+      right:5%; top:50%;
+      transform:translateY(-50%);
+      width:340px; height:340px;
+      opacity:0.08;
+      pointer-events:none;
+      user-select:none;
+      filter: brightness(0) invert(1);
+    }
+    .hero-eagle-accent {
+      position:absolute;
+      right:8%; top:50%;
+      transform:translateY(-50%);
+      width:180px; height:180px;
+      opacity:0;
+      animation: fadeUp 1s 1s forwards;
+      filter: brightness(0) saturate(100%) invert(45%) sepia(80%) saturate(800%) hue-rotate(10deg) brightness(1.1);
+    }
     .scroll-hint {
       position:absolute; bottom:2.5rem; left:3rem;
       display:flex; flex-direction:column;
@@ -661,7 +679,9 @@
 <!-- NAV -->
 <nav id="navbar">
   <a class="logo" href="#">
-    <div class="logo-icon">OT</div>
+    <div class="logo-icon">
+      <img src="https://static.wixstatic.com/media/523772_01b4370eaf94437b8b7d03888d68e345~mv2.png" alt="On Time Construction Eagle Logo" onerror="this.style.display='none'"/>
+    </div>
     <div>
       <div class="logo-text">On Time Construction</div>
       <div class="logo-sub">Albuquerque, New Mexico</div>
@@ -681,6 +701,10 @@
   <div class="hero-bg"></div>
   <div class="hero-accent-line"></div>
   <div class="hero-watermark">OTC</div>
+
+  <!-- Eagle logo: large faint background + smaller orange accent -->
+  <img class="hero-eagle" src="https://static.wixstatic.com/media/523772_01b4370eaf94437b8b7d03888d68e345~mv2.png" alt=""/>
+  <img class="hero-eagle-accent" src="https://static.wixstatic.com/media/523772_01b4370eaf94437b8b7d03888d68e345~mv2.png" alt="On Time Construction"/>
 
   <div class="hero-content">
     <div class="hero-badge">
@@ -878,20 +902,6 @@
         </div>
       </div>
       <div class="info-block">
-        <div class="info-icon">📱</div>
-        <div>
-          <div class="info-label">Additional Line</div>
-          <div class="info-val"><a href="tel:5058977914">(505) 897-7914</a></div>
-        </div>
-      </div>
-      <div class="info-block">
-        <div class="info-icon">✉️</div>
-        <div>
-          <div class="info-label">Email</div>
-          <div class="info-val"><a href="mailto:ontimeconstructionusa@gmail.com">ontimeconstructionusa@gmail.com</a></div>
-        </div>
-      </div>
-      <div class="info-block">
         <div class="info-icon">📍</div>
         <div>
           <div class="info-label">Address</div>
@@ -933,7 +943,7 @@
   </div>
   <div class="footer-mid">
     9632 Fuego Circle NE · Albuquerque, NM 87113<br>
-    (505) 980-1923 · ontimeconstructionusa@gmail.com
+    (505) 980-1923
   </div>
   <div class="footer-right">
     NM License #385205<br>
@@ -942,22 +952,7 @@
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Scrolled nav
   const nav = document.getElementById('navbar');
   window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
-
-  // Scroll reveal
-  const revEls = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 80);
-        obs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.08 });
-  revEls.forEach(el => obs.observe(el));
-</script>
-</body>
-</html>
